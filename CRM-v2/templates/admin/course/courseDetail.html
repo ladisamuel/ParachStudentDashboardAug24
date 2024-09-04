@@ -1,0 +1,44 @@
+{% extends './course.html' %}
+{% load static %}
+
+{% block property %}
+
+
+
+<br>
+
+<div class="table-responsive">
+    <br>
+    
+    <table class="table table-bordered" id="dataTable" width="80%" cellspacing="0">
+        <thead>
+            <h4>Students</h4>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Schedule</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td> <a href="#">{{ student.student.lastname }} - {{ student.student.firstname }}</a></td>
+                <td> {{ student.student.email }}</td>
+                <td> {{ student.student.phonenumber }}</td>
+                <td> {{ student.courseSegment.name }}</td>
+                <td> {{ student.startdate }}</td>
+                <td>  
+                    <a href="{% url 'studentDetailUrl' student.id %}">
+                    <span class="btn btn-small btn-info">View</span></a>
+                </td>
+            </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+</div>
+{% endblock %}

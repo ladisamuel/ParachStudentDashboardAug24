@@ -1,0 +1,151 @@
+{% extends './student.html' %}
+{% load static %}
+
+{% block student %}
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="rounded">
+                {% if student.passport %}
+                    <img src="{{ student.passport.url }}" width="100%" height="auto" alt="" class="rounded">
+                {% else %}
+
+                <img src="{% static 'img/profile-icon.jpg' %}" width="100%" height="auto" alt="" class="rounded">
+
+                {% endif %}
+    
+                <br><br>
+                <p class="action btn btn-outline-primary bg-light p-2 rounded w-100"><a class="" href="#">click here to view student document</a></p></p>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            
+            <div class="table-responsive my-4">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <h4>Personal Details</h4>
+                    <tr>
+                        <th>Name</th>
+                        <td class="text-capitalize">{{ student.firstname }} {{ student.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ student.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>{{ student.phonenumber }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ student.gender }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date Registered</th>
+                        <td>{{ student.date_created }}</td>
+                    </tr>
+                    <tr>
+                        <th>Heard From</th>
+                    <!-- </tr>
+                <tr> -->
+                        <td>{{ customer.heard_about_person }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row border shadow d-flex justify-content-cente p-1">
+                <div class="col my-1"><button class="btn btn-small btn-success" onclick="openCsForm()">Register course</button></div>
+                <div class="col my-1"><button class="btn btn-small btn-info" onclick="openPyForm()">Make payment</button></div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="px-1 py-3 underline">
+                        <form class="col d-none" id="courseForm" method="POST" action="{% url 'studentAddCourseUrl' student.id %}">
+                            {% csrf_token %}        
+                            <fieldset class="form-group border p-3">
+                                <legend class="w-auto px-2">Register Course for student</legend> 
+                                <table style="width: 100%;">
+                                    <!-- <tr class="form-group col-lg-4 col-sm-12">
+                                        <td>Course: </td>
+                                        <td class="my-4">
+                                            <select name="course" class="form-control" required="" id="id_course">
+                                                <option value="" selected="">---------</option>
+                                                {% for course in allCourses %}
+                                                <option value="{{course.id}}">{{course}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr> -->
+                                    <tr class="form-group col-lg-4 col-sm-12">
+                                        <td class="mr-4">Schedule: </td>
+                                        <td class="mx-4">
+                                            <select name="courseSegment" required="" class="form-control" id="id_courseSegment">
+                                                <option value="" selected="">---------</option>
+                                                {% for segment in courseSegment %}
+                                                <option value="{{segment.id}}">{{segment}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br><br>
+                                <input type="submit" value="Create Course" class="col-lg-3 btn btn-success text-light">
+                            </fieldset>
+                        </form>
+                        <form class="col d-none" id="paymentForm" method="POST" action="{% url 'studentAddPaymentUrl' student.id %}"> 
+                            {% csrf_token %}        
+                            <fieldset class="form-group border p-3">
+                                <legend class="w-auto px-2">Make Payment</legend> 
+                                <table style="width: 100%;">
+                                    <tr class="form-group col-lg-4 col-sm-12">
+                                        {{paymentFor}}
+                                        <td>Studentcourse: </td>
+                                        <td class="my-4">
+                                            <select name="studentcourse" class="form-control" required="" id="id_studentcourse">
+                                                <option value="" selected="">---------</option>
+                                                {% for course in courses %}
+                                                <option value="{{course.id}}">{{course}} - #{{course.course.price}} </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group col-lg-4 col-sm-12">
+                                        <td class="mr-4">Payment: </td>
+                                        <td class="mx-4">
+                                            <input type="number" class="form-control" name="payment" value="0" required="" id="id_payment">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br><br>
+                                <input type="submit" value="Make payment for student" class="col btn btn-info text-light">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        let csForm = document.getElementById('courseForm')
+        let pyForm = document.getElementById('paymentForm')
+        function openCsForm() {
+            csForm.classList.toggle('d-block')
+            if(pyForm.style.display=='block'){
+                pyForm.style.display='none'
+            }       
+        }
+        function openPyForm() {
+            pyForm.classList.toggle('d-block')
+            // csForm.classList.toggle('d-none')
+            if(csForm.style.display=='block'){
+                console.log(csForm.display.style)
+            } else {
+                csForm.style.display='none'
+            }
+        }
+        console.log(csForm.style.display)
+        console.log(csForm.style)
+    </script>
+   
+{% endblock %} 
+ 

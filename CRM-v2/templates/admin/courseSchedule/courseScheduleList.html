@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4 text-warning">Data on each Course are listed below, you can click on each column for more information <a target="_blank"
+                href="https://datatables.net"></a>.</p>
+                {% for msg in messages %}
+                <br>
+                <p class="text-danger">{{ msg }}</p>
+                <br>
+                {% endfor %}
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">All Schedules </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Course Name</th>
+                                <th>Course Tutor</th>
+                                <th>Course Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        
+                        <!-- Data for Course from database -->
+                        <tbody>
+                            <tr>
+                            {% for schedule in schedules %}
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ schedule}} {{ scedule.name }}</td>
+                                <td>{{ schedule.tutor }}</td>
+                                {% if schedule.price %}
+                                <td>#{{ schedule.price }}</td>
+                                {% else %}
+                                <td>Add price</td>
+                                {% endif %}
+                                <td>
+                                    <a href="{% url 'courseDetailUrl' schedule.id %}"><span class="btn btn-primary">View</span></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+
+
+{% endblock %}
+

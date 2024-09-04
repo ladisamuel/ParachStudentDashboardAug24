@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static './css/customStyle.css' %}">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="patterns">
+            <div class="blue_left_bottom_vertical"></div>
+            <div class="blue_left_bottom_horizontal"></div>
+            <div class="green_right_top_vertical"></div>
+
+            <div class="triangles">
+                <div class="triangle_1"></div>
+                <div class="triangle_2"></div>
+                <div class="triangle_3"></div>
+                <div class="triangle_4"></div>
+                <div class="triangle_5"></div>
+                <div class="triangle_6"></div>
+                <div class="triangle_7"></div>
+                <div class="triangle_8"></div>
+                <div class="triangle_9"></div>
+                <div class="triangle_10"></div>
+            </div>
+            <div>
+                <div class="triangle_bottom_right"></div>
+            </div>
+        </div>
+        <div class="headText">
+            <h1>Certificate of <br>Completion</h1>
+            <p>This is to certify that</p>
+        </div>
+        <div class="graduant_name">
+            <p> {{course.student.firstname}} {{course.student.lastname}} </p>
+            <hr>
+        </div>
+        <div class="certifier">
+            <p>Has successfully completed the course {{course.course}} <br />at Parach ICT Academy {{startdate}} - {{course.enddate}}.</p>
+            <div class="cover">
+                <img src="" alt="">
+                <hr>
+                <p class="signee">Busayo Idusuyi</p>
+                <p>Manager, Parach ICT Academy</p>
+                {% comment %}
+                <div class="sponsored">
+                    <p>Powered by:</p>
+                    <img src="" alt="">
+                </div>
+                {% endcomment %}
+            </div>
+        </div>
+    </div>
+    {% comment %} <a href="{% url 'render_pdf_Url' %}"><div class="dwl btn btn-info">Check download link</div></a>    {% endcomment %}
+</body>
+</html>

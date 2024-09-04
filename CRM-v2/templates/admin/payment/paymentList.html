@@ -1,0 +1,64 @@
+
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Payment Tables</h1>
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">All payments </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Student</th>
+                                <th>Amount</th>
+                                <th>Course</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        
+                        <!-- Data for Course from database -->
+                        <tbody>
+                            <tr>
+                            {% for payment in allPayments %}
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ payment.student }}</td>
+                                <td>#{{ payment.payment }}</td>
+                                <td>{{ payment.studentcourse.course }}</td>
+                                <td>{{ payment.date_created }}</td>
+                                <td>
+                                    <a href="{% url 'studentDetailpaymentUrl' payment.id %}"><span class="btn btn-primary">View</span></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+
+
+{% endblock %}
+

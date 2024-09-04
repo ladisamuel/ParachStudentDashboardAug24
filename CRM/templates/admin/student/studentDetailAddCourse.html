@@ -1,0 +1,111 @@
+{% extends './student.html' %}
+{% load static %}
+
+{% block customer %}
+
+
+
+<br>
+
+<div class="table-responsive">
+
+    <table class="table table-bordered" id="dataTable" width="80%" cellspacing="0">
+        <thead>
+            <h4>Students</h4>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Total Paid</th>
+                <th>Date</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td> <a href="">{{ student.student.lastname }} - {{ student.student.firstname }}</a></td>
+                <td> {{ student.student.email }}</td>
+                <td> {{ student.student.phonenumber }}</td>
+                <td> </td>
+                <td> {{ student.startdate }}</td>
+                <td>  paid</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td> </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ percentage }}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+    
+{% block student %}
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="rounded">
+                {% if customer.passport %}
+                    <img src="{{ customer.passport.url }}" width="100%" height="auto" alt="" class="rounded">
+                {% else %}
+
+                <img src="{% static 'img/profile-icon.jpg' %}" width="100%" height="auto" alt="" class="rounded">
+
+                {% endif %}
+    
+                <br><br>
+                <p class="action btn btn-outline-primary bg-light p-2 rounded w-100"><a class="" href="#">click here to view customers document</a></p></p>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            
+            <div class="table-responsive my-4">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <h4>Personal Details</h4>
+                    <tr>
+                        <th>Name</th>
+                        <td class="text-capitalize">{{ student.firstname }} {{ student.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ student.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>{{ student.phonenumber }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ student.gender }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date Registered</th>
+                        <td>{{ student.date_created }}</td>
+                    </tr>
+                    <tr>
+                        <th>Heard From</th>
+                    <!-- </tr>
+                <tr> -->
+                        <td>{{ customer.heard_about_person }}</td>
+                    </tr>
+                </table>
+                
+            </div>
+            <div class="row border shadow d-flex justify-content-cente p-1">
+                <div class="col-3"><a href="" class="btn btn-small btn-success">Register course</a></div>
+                <div class="col-3"><a href="" class="btn btn-small btn-info">Make payment</a></div>
+            </div>
+        </div>
+    </div>
+   
+{% endblock %} 
+ 

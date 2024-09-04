@@ -1,0 +1,80 @@
+{% extends './course.html' %}
+{% load static %}
+
+{% block property %}
+
+
+
+
+<div class="row p-1">
+    <div class="col my-1"><button class="btn btn-small btn-success" id="createScheduleBtn" onclick="openCsForm()">Create course schedule</button></div>
+</div>
+<div class="row">
+    <div>
+        <div class="px-1 py-3 underline">
+            <form class="col d-none" id="createScheduleForm" method="POST" action="{%url 'courseDetailScheduleUrl' course.id %}">
+                {% csrf_token %}        
+                    <table style="width: 100%;">
+                        <tr class="form-group col-lg-4 col-sm-12">
+                            <td>Name: </td>
+                            <td class="my-4">
+                                <input type="text" name="name" class="form-control" placeholder="Ex. August Class">
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <input type="submit" value="Create schedule" class="form-control btn btn-success text-light">
+            </form>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="table-responsive">
+    
+    <table class="table table-bordered col-lg-6 col-sm-12" id="dataTable" width="80%" cellspacing="0">
+        <thead>
+            <h4>Students</h4>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Students</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for sschedule in courseSegment %}
+            <tr>
+                <form action="">
+                    <td>{{ forloop.counter }}</td>
+                    <td> <a href="#" class="text-secondary">{{ sschedule.name }}</a></td>
+                    <td> </td>
+                    <td>
+                        <span class="btn btn-small btn-info">Edit</span>
+                        <!-- <a class="btn btn-small btn-info"></a> -->
+                    </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let csForm = document.getElementById('createScheduleForm')
+    function openCsForm() {
+        let btn = document.getElementById('createScheduleBtn')
+        btn.style.display = 'none'
+        csForm.classList.toggle('d-block')
+    }
+</script>
+
+{% endblock %}
+
+
+
+
+
+

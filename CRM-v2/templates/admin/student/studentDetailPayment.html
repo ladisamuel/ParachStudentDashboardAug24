@@ -1,0 +1,67 @@
+{% extends './student.html' %}
+{% load static %}
+
+{% block student %}
+
+<div class="table-responsive">
+    <br>
+    
+    <table class="table table-bordered" id="dataTable" width="80%" cellspacing="0">
+        <thead>
+            <h4>Courses registered for below</h4>
+            <tr>
+                <th>No</th>
+                <th>Payment</th>
+                <th>Course Name</th>
+                <th>Date</th>
+                <th>give i</th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td> <a href="#">{{ payment.payment }}</a></td>
+                <td> {{ payment.studentcourse.courseSegment }}</td>
+                <td> {{ payment.date_created }}</td>
+                <td> {{ payment.checkPayment }}</td>
+                <td>  
+                    <a href="{% url 'studentDetailUrl' student.id %}">
+                    <span class="btn btn-small btn-info">View</span></a>
+                </td>
+            </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+</div>
+
+
+
+
+    <script>
+        
+        let csForm = document.getElementById('courseForm')
+        let pyForm = document.getElementById('paymentForm')
+        function openCsForm() {
+            csForm.classList.toggle('d-block')
+            if(pyForm.style.display=='block'){
+                pyForm.style.display='none'
+            }       
+        }
+        function openPyForm() {
+            pyForm.classList.toggle('d-block')
+            // csForm.classList.toggle('d-none')
+            if(csForm.style.display=='block'){
+                console.log(csForm.display.style)
+            } else {
+                csForm.style.display='none'
+            }
+        }
+        console.log(csForm.style.display)
+        console.log(csForm.style)
+    </script>
+   
+{% endblock %} 
+ 

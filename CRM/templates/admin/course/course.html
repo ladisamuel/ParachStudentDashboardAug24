@@ -1,0 +1,70 @@
+
+{% extends '../../base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<!-- This is the base template for customer details and everything related to customer details -->
+
+
+<!-- uses the custome.css -->
+
+
+<div class="container m-2 py-2">
+
+    <div class="row">
+            
+        <div class="col col-lg-6 mb-3">
+            <div style="display: flex; align-items: baseline;">
+                <h3 class="text-info"> <b>{{ course.name }}</b></h3>
+            </div>
+        </div>
+    </div>
+        <!-- <div class="location">Akinmorin</div>location</div> -->
+    <div class="row mt-4">
+        <div class="col card py-2">
+            
+            <p>
+                <a href="{% url 'courseListUrl' %}" class="btn btn-secondary text-light col-lg-2 p-2">List all courses</a>
+            </p>
+            <div>
+                {% for msg in messages %}
+                    <p class="text-danger">{{msg}} </p>
+                {% endfor %}
+            </div>
+            
+            <div class="d-fle border p-2 rounded shadow mb-3 mt-3 align-item-center">
+                <p class="">Current tutor - <b>{{ course.tutor }}</b></p>
+                <p>Current Course Price - #{{ course.price }}</p>
+                <!-- <p>Course detail {{ course.details }}</p> -->
+            </div>
+            
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+                <p class="navbar-brand" href="#">STUDENT :</p>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        
+                        <li class="nav-item action m-1 btn btn-sm btn-outline-info">
+                            <a class="nav-link" href="{% url 'courseDetailUrl' course.id %}">Data<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item action m-1 btn btn-sm btn-outline-info">
+                            <a class="nav-link" href="{% url 'courseDetailScheduleUrl' course.id %}">Schedules   </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="col-lg-12">
+            {% block property %}
+
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

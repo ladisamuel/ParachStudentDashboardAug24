@@ -1,0 +1,107 @@
+{% extends './student.html' %}
+{% load static %}
+
+{% block student %}
+
+<div class="table-responsive">
+    <br>
+    {% for msg in messages %}
+        <p>{{msg}} </p>
+    {% endfor %}
+    
+    <table class="table table-bordered" id="dataTable" width="80%" cellspacing="0">
+        <thead>
+            <h4>Courses registered for below</h4>
+            <tr>
+                <th>No</th>
+                <th>Course Name</th>
+                <th>Schedule</th>
+                <th>Registered Date</th>
+                <th>Completed</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td> <a href="#">{{ course.student.lastname }} - {{ course.student.firstname }}</a></td>
+                    <td> {{ course.course }} - {{ course.courseSegment.name }}</td>
+                    <td> {{ course.startdate }}</td>
+                    <td>
+                        {% if course.completed %}
+                        <a href="{% url 'studentCertificateUrl' course.student.id %}"> <div class="btn btn-primary">print certificate</div></a>
+                        <a href="{% url 'emailCertificateUrl' %}"> <div class="btn btn-warning">Email certificate</div></a>
+                        
+                        {% else %}
+
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Complete course
+                        </button>
+                        {% endif %}
+                    </td>
+                    <td>  
+                        <a href="{% url 'studentDetailUrl' student.id %}">
+                        <span class="btn btn-small btn-info">View</span></a>
+                        
+                        <!-- Button trigger modal -->
+                    </td>
+                </tr>
+
+                <!-- Modal -->
+                
+                <form action="{% url 'studentEditCourseUrl' course.id %}" method="post">
+                    {% csrf_token %}
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Course Status</h1>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button> -->
+                            </div>
+                        <div class="modal-body">
+                            <b>Comfirm student course completed</b>
+                            <br>
+                            <input type="checkbox" name="completed" id="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" value="Save" class="btn btn-primary" >
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+
+        
+            {% endfor %} 
+        </tbody>
+    </table>
+</div>
+
+    <script>
+        
+        let csForm = document.getElementById('courseForm')
+        let pyForm = document.getElementById('paymentForm')
+        function openCsForm() {
+            csForm.classList.toggle('d-block')
+            if(pyForm.style.display=='block'){
+                pyForm.style.display='none'
+            }       
+        }
+        function openPyForm() {
+            pyForm.classList.toggle('d-block')
+            // csForm.classList.toggle('d-none')
+            if(csForm.style.display=='block'){
+                console.log(csForm.display.style)
+            } else {
+                csForm.style.display='none'
+            }
+        }
+        console.log(csForm.style.display)
+        console.log(csForm.style)
+    </script>
+   
+{% endblock %} 
+ 
